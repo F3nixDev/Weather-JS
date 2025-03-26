@@ -56,27 +56,7 @@ Zajímavým aspektem architektury je, že spouštění kódu probíhá přímo v
 - Python kód je spouštěn pomocí Pyodide, což je implementace Pythonu v WebAssembly
 - JavaScript kód je spouštěn pomocí Function constructor v izolovaném prostředí
 
-Toto řešení eliminuje potřebu odesílat kód na server pro spuštění, což snižuje latenci a zlepšuje uživatelský zážitek. Zároveň to umožňuje aplikaci fungovat i v offline režimu, pokud jsou úlohy již načteny.
 
-Architektura aplikace je znázorněna na následujícím diagramu:
-
-```
-+------------------+        HTTP        +------------------+
-|                  |      Requests      |                  |
-|     Frontend     |<----------------->|     Backend      |
-|    (Vue.js 3)    |                   |     (Python)     |
-|                  |                   |                  |
-+------------------+                   +------------------+
-        |                                       |
-        | Uživatelské                           | Ukládání a
-        | rozhraní                              | načítání úloh
-        v                                       v
-+------------------+                   +------------------+
-|                  |                   |                  |
-|     Uživatel     |                   |     Databáze     |
-|                  |                   |                  |
-+------------------+                   +------------------+
-```
 
 ## 3. Frontend část
 
@@ -136,7 +116,7 @@ Aplikace má dvě hlavní stránky:
 
 ## 4. Backend část
 
-Backend aplikace je implementován v Pythonu a poskytuje REST API pro ukládání a načítání úloh. Backend není součástí tohoto repozitáře, ale z dokumentace a kódu frontendu lze odvodit jeho základní strukturu a funkcionalitu.
+Backend aplikace je implementován v Pythonu a poskytuje REST API pro ukládání a načítání úloh.
 
 Backend poskytuje následující API endpointy:
 
@@ -146,9 +126,7 @@ Backend poskytuje následující API endpointy:
 - `PUT /api/tasks/{id}` - Aktualizace existující úlohy
 - `DELETE /api/tasks/{id}` - Smazání úlohy
 
-Backend pravděpodobně používá nějakou formu databáze pro ukládání úloh, ale konkrétní implementace není známa.
-
-Pro spuštění backendu je potřeba nainstalovat závislosti pomocí `pip install -r requirements.txt` a spustit aplikaci pomocí `python app.py`, jak je uvedeno v README.md.
+Pro spuštění backendu je potřeba nainstalovat závislosti pomocí `pip install -r requirements.txt` a spustit aplikaci pomocí `python app.py`.
 
 ## 5. Komponenty
 
@@ -369,7 +347,7 @@ Stránka `EditorPage.vue` je hlavní stránkou aplikace, kde uživatelé mohou v
 
 **Implementace:**
 
-Stránka používá komponenty `CodeEditor` a `Console` pro zobrazení editoru kódu a konzolového výstupu. Komunikuje s backendem pomocí API služby pro načítání úloh.
+Stránka používá komponenty `CodeEditor` a `Console` pro zobrazení editoru kódu a konzolového výstupu. Komunikuje s backendem pomocí API pro načítání úloh.
 
 ### 6.2 TasksPage
 
@@ -549,26 +527,12 @@ npm run dev
 
 Po spuštění je aplikace dostupná na adrese `http://localhost:3000` (nebo jiném portu, který je zobrazen v konzoli).
 
-## 11. Možnosti rozšíření
-
-Aplikace má mnoho možností pro další rozšíření a vylepšení:
-
-1. **Podpora dalších programovacích jazyků** - přidání podpory pro další jazyky jako C++, Java, Ruby atd.
-2. **Autentizace a autorizace** - přidání systému pro přihlašování a správu uživatelů s různými rolemi (student, učitel, admin)
-3. **Sdílení úloh** - možnost sdílet úlohy s ostatními uživateli nebo je publikovat veřejně
-4. **Hodnocení a zpětná vazba** - systém pro hodnocení řešení a poskytování zpětné vazby
-5. **Interaktivní tutoriály** - průvodci a tutoriály pro začátečníky
-6. **Offline režim** - možnost používat aplikaci bez připojení k internetu
-7. **Mobilní aplikace** - vytvoření nativní mobilní aplikace pro Android a iOS
-8. **Integrace s výukovými systémy** - integrace s LMS systémy jako Moodle, Canvas atd.
-
 ## 12. Bezpečnostní aspekty
 
 Aplikace implementuje několik bezpečnostních opatření:
 
 1. **Izolované prostředí pro spouštění kódu** - kód je spouštěn v izolovaném prostředí bez přístupu k citlivým API
 2. **Omezení doby běhu** - kód může běžet pouze omezenou dobu, aby se zabránilo nekonečným smyčkám
-3. **Omezení paměti** - kód má omezený přístup k paměti, aby se zabránilo útokům typu DoS
 4. **Validace vstupů** - všechny vstupy jsou validovány před zpracováním
 
 Přesto existují některá bezpečnostní rizika, která by měla být adresována v produkčním nasazení:
@@ -598,7 +562,7 @@ Přesto existují některé výkonnostní výzvy:
 Aplikace má několik známých problémů a omezení:
 
 1. **Omezená podpora programovacích jazyků** - aktuálně jsou podporovány pouze Python a JavaScript
-2. **Omezení Pyodide** - Pyodide nepodporuje všechny Python knihovny a může mít odlišné chování od standardního Pythonu
+2. **Omezení Pyodide** - Pyodide nepodporuje všechny Python knihovny.
 3. **Výkonnostní omezení** - spouštění složitých algoritmů nebo velkých datových sad může být pomalé
 4. **Omezení prohlížeče** - aplikace je závislá na možnostech a omezeních prohlížeče
 5. **Offline funkcionalita** - aplikace vyžaduje připojení k internetu pro načtení Pyodide a komunikaci s backendem
@@ -607,6 +571,5 @@ Aplikace má několik známých problémů a omezení:
 
 Projekt Code Compilator je moderní webová aplikace pro výuku programování, která poskytuje interaktivní prostředí pro vytváření, spouštění a testování programovacího kódu přímo v prohlížeči. Aplikace je postavena na moderních technologiích jako Vue.js, Quasar a Pyodide a poskytuje bohaté uživatelské rozhraní s mnoha funkcemi.
 
-Aplikace má mnoho možností pro další rozšíření a vylepšení, ale již v současné podobě poskytuje užitečný nástroj pro výuku programování. Díky spouštění kódu přímo v prohlížeči eliminuje potřebu instalace dalších nástrojů a umožňuje snadné použití v různých prostředích.
 
-Věříme, že tato aplikace bude užitečným nástrojem pro učitele a studenty programování a přispěje k lepšímu a efektivnějšímu vzdělávání v této oblasti.
+
