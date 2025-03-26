@@ -535,12 +535,7 @@ Aplikace implementuje několik bezpečnostních opatření:
 2. **Omezení doby běhu** - kód může běžet pouze omezenou dobu, aby se zabránilo nekonečným smyčkám
 4. **Validace vstupů** - všechny vstupy jsou validovány před zpracováním
 
-Přesto existují některá bezpečnostní rizika, která by měla být adresována v produkčním nasazení:
 
-1. **Cross-Site Scripting (XSS)** - riziko spuštění škodlivého kódu v prohlížeči uživatele
-2. **Cross-Site Request Forgery (CSRF)** - riziko provedení nežádoucích akcí jménem přihlášeného uživatele
-3. **Injection** - riziko vložení škodlivého kódu do databáze nebo systému
-4. **Denial of Service (DoS)** - riziko přetížení systému velkým množstvím požadavků
 
 ## 13. Výkonnostní aspekty
 
